@@ -5,14 +5,17 @@ default: &default
   username: root
   password:
   socket: /var/run/mysqld/mysqld.sock
+  host: 127.0.0.1
 
 development:
   <<: *default
   database: g221-rails-training_development
+  host: 127.0.0.1
 
 test:
   <<: *default
   database: g221-rails-training_test
+  host: 127.0.0.1
 
 production:
   <<: *default
