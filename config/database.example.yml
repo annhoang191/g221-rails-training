@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password:
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: g221-rails-training_development
+
+test:
+  <<: *default
+  database: g221-rails-training_test
+
+production:
+  <<: *default
+  database: g221-rails-training_production
+  username: g221-rails-training
+  password: <%= ENV['G221-RAILS-TRAINING_DATABASE_PASSWORD'] %>
