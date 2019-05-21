@@ -48,11 +48,11 @@ jobs:
           name: Database setup
           command: |
             cp ./config/database.example.yml ./config/database.yml
-            bundle exec rake db:create db:migrate db:seed
+            bundle exec rake db:create db:schema:load --trace
 
       - run:
           name: run rubocop
-          command: bundle exec rubocop
+          command: bundle exec rubocop --parallel
 
       - run:
           name: Run rspec
