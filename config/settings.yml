@@ -1,0 +1,2 @@
+auth_token:
+  exp_time: <%= 1.hours.from_now %>

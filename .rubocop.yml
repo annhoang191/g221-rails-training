@@ -1743,7 +1743,7 @@ Metrics/AbcSize:
   VersionChanged: '0.66'
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
-  Max: 15
+  Max: 50
 
 Metrics/BlockLength:
   Description: 'Avoid long blocks with many lines.'
@@ -3354,7 +3354,7 @@ Style/MethodDefParentheses:
                  Checks if the method definitions have or don't have
                  parentheses.
   StyleGuide: '#method-parens'
-  Enabled: true
+  Enabled: false
   VersionAdded: '0.16'
   VersionChanged: '0.35'
   EnforcedStyle: require_parentheses
