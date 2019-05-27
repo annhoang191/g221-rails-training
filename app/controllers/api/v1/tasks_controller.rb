@@ -10,6 +10,11 @@ module Api
         represent_response data, Settings.http_code.code_204
       end
 
+      def create
+        task = Task.create! task_params
+        represent_response TaskPresenter.new(task)
+      end
+
       private
 
       def task_params
