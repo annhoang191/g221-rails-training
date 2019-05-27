@@ -18,6 +18,10 @@ module Error
       rescue_from(*NOT_FOUND_ERROR_GROUP) do |e|
         respond error_code(e), error_message(e), e.message, Settings.http_code.code_404
       end
+
+      rescue_from(*UNAUTHORIZE_ERROR_GROUP) do |e|
+        respond error_code(e), error_message(e), e.message, Settings.http_code.code_401
+      end
     end
 
     private

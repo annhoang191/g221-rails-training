@@ -1743,7 +1743,7 @@ Metrics/AbcSize:
   VersionChanged: '0.66'
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
-  Max: 15
+  Max: 50
 
 Metrics/BlockLength:
   Description: 'Avoid long blocks with many lines.'
@@ -3780,7 +3780,7 @@ Style/Proc:
 Style/RaiseArgs:
   Description: 'Checks the arguments passed to raise/fail.'
   StyleGuide: '#exception-class-messages'
-  Enabled: true
+  Enabled: false
   VersionAdded: '0.14'
   VersionChanged: '0.40'
   EnforcedStyle: exploded
