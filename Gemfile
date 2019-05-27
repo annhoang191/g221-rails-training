@@ -3,7 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.5.1"
 
+gem "bcrypt"
 gem "bootsnap", ">= 1.1.0", require: false
+gem "config"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"
 gem "rack-cors"
@@ -13,6 +15,7 @@ gem "rubocop", "~> 0.69.0", require: false
 group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
+  gem "pry-rails"
   gem "rspec-rails", "~> 3.8"
 end
 
