@@ -8,4 +8,6 @@ module Error
       @message = I18n.t("api_error.error_detail.#{error_key}")
     end
   end
+
+  class UnauthorizedError < CustomError; end
 end

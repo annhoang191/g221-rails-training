@@ -24,3 +24,6 @@
 
 # Ignore database information
 /config/database.yml
+
+# Ignore file config environment
+/config/application.yml

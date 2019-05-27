@@ -3,9 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.5.1"
 
-gem "bcrypt"
+gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "config"
+gem "jwt"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"
 gem "rack-cors"
@@ -26,6 +27,7 @@ group :development do
 end
 
 group :test do
+  gem "database_cleaner"
   gem "shoulda-matchers"
 end
 
