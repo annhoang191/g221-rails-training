@@ -11,5 +11,9 @@ module Error
     NOT_FOUND_ERROR_GROUP = [
       ActiveRecord::RecordNotFound
     ].freeze
+
+    UNAUTHORIZE_ERROR_GROUP = [
+      JWT::ExpiredSignature, JWT::VerificationError
+    ].freeze
   end
 end

@@ -4,6 +4,7 @@ api_errors:
     custom_error: 500
     record_invalid: 400
     record_not_found: 404
+    unauthorized: 401
 
 http_code:
   code_200: 200
@@ -13,3 +14,6 @@ http_code:
   code_403: 403
   code_404: 404
   code_500: 500
+
+auth_token:
+  exp_time: <%= 1.hours.from_now %>
