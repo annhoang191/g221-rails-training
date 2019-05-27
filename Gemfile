@@ -12,6 +12,8 @@ gem "puma", "~> 3.11"
 gem "rack-cors"
 gem "rails", "~> 5.2.3"
 gem "rubocop", "~> 0.69.0", require: false
+gem "faraday"
+gem "figaro"
 
 group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
