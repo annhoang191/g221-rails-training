@@ -5,11 +5,15 @@ module Error
     ].freeze
 
     BAD_REQUEST_ERROR_GROUP = [
-      ActiveRecord::RecordInvalid
+      ActiveRecord::RecordInvalid, BCrypt::Errors
     ].freeze
 
     NOT_FOUND_ERROR_GROUP = [
       ActiveRecord::RecordNotFound
+    ].freeze
+
+    UNAUTHORIZE_ERROR_GROUP = [
+      JWT::ExpiredSignature, JWT::VerificationError, UnauthorizedError
     ].freeze
   end
 end

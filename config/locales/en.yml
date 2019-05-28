@@ -10,6 +10,8 @@ en:
       custom_error: Internal Custom Error
       record_invalid: Record Invalid
       record_not_found: Record Not Found
+      unauthorized_error: This action is not authorized
     error_detail:
       standard_error: Something went wrong with standard errors
       custom_error: Something went wrong with custom errors
+      unauthorized_error: Something went wrong with authorized errors
