@@ -86,5 +86,15 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
   end
 
   describe "GET /api/v1/auth/oauth2" do
+    context "with valid credentials provided" do
+      it "use service GithubOauthService" do
+        # TODO: mocking github service here
+      end
+
+      # TODO: it response with status code 200
+    end
+
+    context "with invalid credentials provided" do
+    end
   end
 end
