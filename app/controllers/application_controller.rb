@@ -11,10 +11,10 @@ class ApplicationController < ActionController::API
 
     header = header.split(" ").last
     @decoded_token = JsonWebToken.decode header
-    @current_user = User.find @decoded_token[:user_id]
+    @current_user = User.cache_current_user @decoded_token[:user_id]
   end
 
   def current_user
-    @current_user || User.find(@decoded_token[:user_id])
+    @current_user || User.cache_current_user(@decoded_token[:user_id])
   end
 end
