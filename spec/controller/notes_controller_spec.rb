@@ -82,7 +82,7 @@ RSpec.describe Api::V1::Note, type: :request do
       before do
         patch "/api/v1/notes/#{note.id}", params: { title: "test", content: nil }
       end
-      it "result success" do
+      it "return 400" do
         expect(response.body).to eq({
           status: false,
           error: {
@@ -98,13 +98,13 @@ RSpec.describe Api::V1::Note, type: :request do
       before do
         patch "/api/v1/notes/nil", params: { title: "test", content: "aaaaaaaaaa" }
       end
-      it "result success" do
+      it "return 404" do
         expect(response.body).to eq({
           status: false,
           error: {
             error_code: 404,
             message: "Record Not Found",
-            errors: "Couldn't find Note with 'id'=nil"
+            errors: "Couldn't find Note with 'id'=nil [WHERE `notes`.`user_id` = ?]"
           }
         }.to_json)
       end
