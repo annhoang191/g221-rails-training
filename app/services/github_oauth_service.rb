@@ -13,8 +13,9 @@ class GithubOauthService
       key, value = string.split("=")
       response_hash[key] = value
     end
-
     access_token = response_hash["access_token"]
+    raise Error::UnauthorizedError.new unless access_token
+
     user_github_info = Faraday.get "https://api.github.com/user?access_token=#{access_token}"
     auth = JSON.parse(user_github_info.body)
 
@@ -24,16 +25,12 @@ class GithubOauthService
   private
 
   def create_user_from_github_data param_uid, name, email, provider
-    tmp_password = SecureRandom.base64(8)
-
     user = User.find_or_create_by uid: param_uid
     user.name = name
     user.email = email
-    user.password = tmp_password
-    user.password_confirmation = tmp_password
     user.uid = param_uid
     user.provider = provider
-    user.save!
+    user.save validate: false
 
     [user]
   end

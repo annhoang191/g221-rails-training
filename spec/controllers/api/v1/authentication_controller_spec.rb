@@ -85,16 +85,72 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
     end
   end
 
-  describe "GET /api/v1/auth/oauth2" do
-    context "with valid credentials provided" do
-      it "use service GithubOauthService" do
-        # TODO: mocking github service here
-      end
-
-      # TODO: it response with status code 200
+  describe "GET /api/v1/auth/`provider`/callback" do
+    before do
+      get "/api/v1/auth/#{provider}/callback"
     end
 
+    let(:provider) { "github" }
+    let(:github_url) { "https://github.com/login/oauth/access_token?" }
+    let(:client_id) { ENV["GITHUB_CLIENT_ID"] }
+    let(:client_secret) { ENV["GITHUB_CLIENT_SECRET"] }
+
     context "with invalid credentials provided" do
+      context "with invalid `client_id`" do
+        let(:client_id) { "invalid_client_id" }
+        it_behaves_like "API response" do
+          let(:status) { Settings.http_code.code_401 }
+          let(:expected) do
+            {
+              "status": false,
+              "error": {
+                "error_code": 401,
+                "message": "This action is not authorized",
+                "errors": "Something went wrong with authorized errors"
+              }
+            }
+          end
+        end
+      end
+
+      context "with invalid `client_secret`" do
+        let(:client_secret) { "invalid_client_secret" }
+        it_behaves_like "API response" do
+          let(:status) { Settings.http_code.code_401 }
+          let(:expected) do
+            {
+              "status": false,
+              "error": {
+                "error_code": 401,
+                "message": "This action is not authorized",
+                "errors": "Something went wrong with authorized errors"
+              }
+            }
+          end
+        end
+      end
+
+      context "with invalid `granted_code`" do
+        let(:granted_code) { "invalid_granted_code" }
+        it_behaves_like "API response" do
+          let(:status) { Settings.http_code.code_401 }
+          let(:expected) do
+            {
+              "status": false,
+              "error": {
+                "error_code": 401,
+                "message": "This action is not authorized",
+                "errors": "Something went wrong with authorized errors"
+              }
+            }
+          end
+        end
+      end
+    end
+
+    context "with valid credentials provided" do
+      # TODO: expect GithubOauthService was called
+      # TODO: expect a token was created and return status 200
     end
   end
 end
