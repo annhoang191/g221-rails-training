@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include Error::ErrorHandler
 
-  def represent_response raw_response, status_code
+  def represent_response raw_response, status_code = Settings.http_code.code_201
     render json: { status: true, data: raw_response.as_json }, status: status_code
   end
 

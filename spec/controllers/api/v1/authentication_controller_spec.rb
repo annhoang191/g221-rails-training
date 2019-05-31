@@ -18,6 +18,7 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
     context "with valid credentials" do
       let(:params) { { email: user.email, password: user.password } }
       let(:token) { JsonWebToken.encode user_id: user.id }
+
       it_behaves_like "API response" do
         let(:status) { Settings.http_code.code_200 }
         let(:expected) do
@@ -25,7 +26,7 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
             status: true,
             data: {
               token: token,
-              exp: (Time.zone.now + 24.hours.to_i).strftime("%m-%d-%Y %H:%M"),
+              exp: (Time.current + 1.day).strftime("%m-%d-%Y %H:%M"),
               email: user.email
             }
           }
@@ -91,7 +92,7 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
     end
 
     let(:provider) { "github" }
-    let(:github_url) { "https://github.com/login/oauth/access_token?" }
+    let(:github_url) { "https://example.com/login/oauth/access_token?" }
     let(:client_id) { ENV["GITHUB_CLIENT_ID"] }
     let(:client_secret) { ENV["GITHUB_CLIENT_SECRET"] }
 
@@ -149,8 +150,17 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
     end
 
     context "with valid credentials provided" do
-      # TODO: expect GithubOauthService was called
-      # TODO: expect a token was created and return status 200
+      before do
+        allow(github_service).to receive(:perform).with(granted_code, provider).and_return(user)
+      end
+
+      let(:granted_code) { "12345" }
+      let(:user) { create(:user) }
+      let(:github_service) { GithubOauthService.new }
+
+      it "find or create an user with Github Oauth service" do
+        expect(github_service.perform(granted_code, provider)).to eq(user)
+      end
     end
   end
 end

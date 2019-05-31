@@ -3,7 +3,7 @@ module Api
     class UsersController < ApplicationController
       def create
         user = User.create! user_params
-        represent_response UserPresenter.new(user), Settings.http_code.code_201
+        represent_response UserPresenter.new(user)
       end
 
       private
