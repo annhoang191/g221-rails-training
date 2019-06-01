@@ -7,6 +7,55 @@ RSpec.describe Api::V1::Note, type: :request do
     allow_any_instance_of(Api::V1::NotesController).to receive(:current_user) { user }
   end
 
+  describe "GET /api/v1/note" do
+    let!(:notes) { create_list :note, 2, user_id: user.id }
+    context "when get list notes success" do
+      before do
+        get "/api/v1/notes", params: { page: 1 }
+      end
+      it "result success" do
+        expect(response.body).to eq({
+          status: true,
+          data: [{
+            id: Note.last.id,
+            title: "note 1",
+            content: "note_content",
+            updated_at: Note.last.updated_at
+          },
+                 {
+                   id: Note.first.id,
+                   title: "note 1",
+                   content: "note_content",
+                   updated_at: Note.first.updated_at
+                 }]
+        }.to_json)
+      end
+    end
+
+    context "when not have page params" do
+      before do
+        get "/api/v1/notes"
+      end
+      it "result get page 1" do
+        expect(response.body).to eq({
+          status: true,
+          data: [{
+            id: Note.last.id,
+            title: "note 1",
+            content: "note_content",
+            updated_at: Note.last.updated_at
+          },
+                 {
+                   id: Note.first.id,
+                   title: "note 1",
+                   content: "note_content",
+                   updated_at: Note.first.updated_at
+                 }]
+        }.to_json)
+      end
+    end
+  end
+
   describe "POST /api/v1/note" do
     context "when create note " do
       before(:each) do
@@ -29,7 +78,7 @@ RSpec.describe Api::V1::Note, type: :request do
       before(:each) do
         post "/api/v1/notes", params: { title: "test" }
       end
-      it "result success" do
+      it "result 400" do
         expect(response.body).to eq({
           status: false,
           error: {
