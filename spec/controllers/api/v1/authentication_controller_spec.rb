@@ -1,11 +1,5 @@
 require "rails_helper"
-
-RSpec.shared_examples "API response" do
-  it "should response with expected result" do
-    expect(response).to have_http_status(status)
-    expect(response.body).to eq expected.to_json
-  end
-end
+require "shared_examples/api_response"
 
 RSpec.describe Api::V1::AuthenticationController, type: :request do
   describe "POST /api/v1/auth/login" do

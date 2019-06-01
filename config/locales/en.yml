@@ -17,3 +17,8 @@ en:
       standard_error: Something went wrong with standard errors
       custom_error: Something went wrong with custom errors
       unauthorized_error: Something went wrong with authorized errors
+
+  api:
+    v1:
+      tasks:
+        delete_success: "Delete successfully"

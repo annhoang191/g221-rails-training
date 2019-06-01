@@ -9,6 +9,7 @@ api_errors:
 http_code:
   code_200: 200
   code_201: 201
+  code_204: 204
   code_400: 400
   code_401: 401
   code_403: 403
