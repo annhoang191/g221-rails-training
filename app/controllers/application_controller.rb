@@ -10,8 +10,10 @@ class ApplicationController < ActionController::API
     raise Error::UnauthorizedError.new unless header
 
     header = header.split(" ").last
-    decoded_token = JsonWebToken.decode header
+    @decoded_token = JsonWebToken.decode header
+  end
 
-    @current_user = User.find decoded_token[:user_id]
+  def current_user
+    @current_user ||= User.cache_current_user(@decoded_token[:user_id])
   end
 end
