@@ -45,24 +45,18 @@ RSpec.describe Api::V1::TasksController, type: :request do
   end
 
   describe "POST /api/vi/tasks" do
+    let(:user) { create :user }
+    let(:task) { build :task, user: user }
+
     before do
+      allow_any_instance_of(Api::V1::TasksController).to receive(:authorize_request) { true }
+      allow_any_instance_of(Api::V1::TasksController).to receive(:current_user) { user }
       post "/api/v1/tasks", params: params
-    end
-
-    let(:user) do
-      User.create!(email: "foo@bar.com",
-                   name: "foo",
-                   password: "foobar123",
-                   password_confirmation: "foobar123")
-    end
-
-    let(:valid_task) do
-      Task.new(user_id: user.id, content: "lorem ip sum")
     end
 
     context "when valid params" do
       let(:params) do
-        { user_id: valid_task.user_id, content: valid_task.content }
+        { content: task.content }
       end
 
       it "returns success" do
@@ -72,8 +66,8 @@ RSpec.describe Api::V1::TasksController, type: :request do
         expect(response.body).to eq({
           status: true,
           data: {
-            id: task.id,
-            user_id: task.user_id,
+            id: 1,
+            user_id: user.id,
             title: task.title,
             content: task.content,
             due_date: task.due_date,
@@ -83,28 +77,9 @@ RSpec.describe Api::V1::TasksController, type: :request do
       end
     end
 
-    context "when missing user_id in params" do
-      let(:params) do
-        { user_id: nil, content: valid_task.content }
-      end
-
-      it "returns bad request" do
-        expect(Task.count).to eq(0)
-        expect(response).to have_http_status(400)
-        expect(response.body).to eq({
-          status: false,
-          error: {
-            error_code: 400,
-            message: "Record Invalid",
-            errors: "User must exist"
-          }
-        }.to_json)
-      end
-    end
-
     context "when missing content in params" do
       let(:params) do
-        { user_id: valid_task.user_id, content: nil }
+        { content: nil }
       end
 
       it "returns bad request" do

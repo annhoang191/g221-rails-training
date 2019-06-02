@@ -11,14 +11,14 @@ module Api
       end
 
       def create
-        task = Task.create! task_params
+        task = current_user.tasks.create! task_params
         represent_response TaskPresenter.new(task)
       end
 
       private
 
       def task_params
-        params.permit(:user_id, :title, :content, :due_date, :status)
+        params.permit(:title, :content, :due_date, :status)
       end
 
       def find_task
