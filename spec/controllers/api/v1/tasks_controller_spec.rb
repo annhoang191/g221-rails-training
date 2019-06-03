@@ -56,7 +56,7 @@ RSpec.describe Api::V1::TasksController, type: :request do
 
     context "when valid params" do
       let(:params) do
-        { content: task.content }
+        { content: task.content, status: "unset" }
       end
 
       it "returns success" do
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::TasksController, type: :request do
             title: task.title,
             content: task.content,
             due_date: task.due_date,
-            status: 0
+            status: task.status
           }
         }.to_json)
       end
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::TasksController, type: :request do
 
     context "when missing content in params" do
       let(:params) do
-        { content: nil }
+        { content: nil, status: "unset" }
       end
 
       it "returns bad request" do
