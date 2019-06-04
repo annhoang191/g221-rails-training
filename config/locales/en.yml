@@ -11,6 +11,8 @@ en:
       record_invalid: Record Invalid
       record_not_found: Record Not Found
       unauthorized_error: This action is not authorized
+      expired_signature: This token has been expired
+      verification_error: Wrong token
     error_detail:
       standard_error: Something went wrong with standard errors
       custom_error: Something went wrong with custom errors

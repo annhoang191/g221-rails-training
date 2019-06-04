@@ -6,6 +6,8 @@ ruby "2.5.1"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "config"
+gem "faraday"
+gem "figaro"
 gem "jwt"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"

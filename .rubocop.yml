@@ -2866,7 +2866,7 @@ Style/CollectionMethods:
 Style/ColonMethodCall:
   Description: 'Do not use :: for method call.'
   StyleGuide: '#double-colons'
-  Enabled: true
+  Enabled: false
   VersionAdded: '0.9'
 
 Style/ColonMethodDefinition:
