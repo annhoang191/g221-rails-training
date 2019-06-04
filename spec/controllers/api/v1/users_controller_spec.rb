@@ -1,4 +1,5 @@
 require "rails_helper"
+require "shared_examples/api_response"
 
 RSpec.describe Api::V1::UsersController, type: :request do
   describe "POST /api/v1/users" do

@@ -11,7 +11,7 @@ module Api
 
       def update
         @note.update_attributes! note_params
-        represent_response NotePresenter.new(@note)
+        represent_response NotePresenter.new(@note), Settings.http_code.code_200
       end
 
       private
