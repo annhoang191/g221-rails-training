@@ -54,6 +54,24 @@ RSpec.describe Api::V1::Note, type: :request do
         }.to_json)
       end
     end
+
+    context "when have pages" do
+      before do
+        create_list :note, 5, user_id: user.id
+        get "/api/v1/notes", params: { page: 2 }
+      end
+      it "result success get page 2" do
+        expect(response.body).to eq({
+          status: true,
+          data: [{
+            id: Note.first.id,
+            title: "note 1",
+            content: "note_content",
+            updated_at: Note.first.updated_at
+          }]
+        }.to_json)
+      end
+    end
   end
 
   describe "POST /api/v1/note" do

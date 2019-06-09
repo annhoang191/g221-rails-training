@@ -6,7 +6,7 @@ module Api
 
       def index
         note = current_user.notes.order_id.page(params[:page]).per(Settings.per_page.note)
-        represent_response NotePresenter.new(note)
+        represent_response NotePresenter.new(note), Settings.http_code.code_200
       end
 
       def create
