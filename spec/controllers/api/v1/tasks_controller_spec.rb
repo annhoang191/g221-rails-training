@@ -43,4 +43,57 @@ RSpec.describe Api::V1::TasksController, type: :request do
       end
     end
   end
+
+  describe "POST /api/vi/tasks" do
+    let(:user) { create :user }
+    let(:task) { build :task, user: user }
+
+    before do
+      allow_any_instance_of(Api::V1::TasksController).to receive(:authorize_request) { true }
+      allow_any_instance_of(Api::V1::TasksController).to receive(:current_user) { user }
+      post "/api/v1/tasks", params: params
+    end
+
+    context "when valid params" do
+      let(:params) do
+        { content: task.content, status: "unset" }
+      end
+
+      it "returns success" do
+        expect(Task.count).to eq(1)
+        expect(response).to have_http_status(201)
+        task = Task.first
+        expect(response.body).to eq({
+          status: true,
+          data: {
+            id: 1,
+            user_id: user.id,
+            title: task.title,
+            content: task.content,
+            due_date: task.due_date,
+            status: task.status
+          }
+        }.to_json)
+      end
+    end
+
+    context "when missing content in params" do
+      let(:params) do
+        { content: nil, status: "unset" }
+      end
+
+      it "returns bad request" do
+        expect(Task.count).to eq(0)
+        expect(response).to have_http_status(400)
+        expect(response.body).to eq({
+          status: false,
+          error: {
+            error_code: 400,
+            message: "Record Invalid",
+            errors: "Content can't be blank"
+          }
+        }.to_json)
+      end
+    end
+  end
 end

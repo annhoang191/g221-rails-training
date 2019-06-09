@@ -10,10 +10,15 @@ module Api
         represent_response data, Settings.http_code.code_204
       end
 
+      def create
+        task = current_user.tasks.create! task_params
+        represent_response TaskPresenter.new(task)
+      end
+
       private
 
       def task_params
-        params.permit(:user_id, :title, :content, :due_date, :status)
+        params.permit(:title, :content, :due_date, :status)
       end
 
       def find_task
