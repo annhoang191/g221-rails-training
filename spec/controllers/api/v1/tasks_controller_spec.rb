@@ -45,12 +45,9 @@ RSpec.describe Api::V1::TasksController, type: :request do
   end
 
   describe "POST /api/vi/tasks" do
-    let(:user) { create :user }
     let(:task) { build :task, user: user }
 
     before do
-      allow_any_instance_of(Api::V1::TasksController).to receive(:authorize_request) { true }
-      allow_any_instance_of(Api::V1::TasksController).to receive(:current_user) { user }
       post "/api/v1/tasks", params: params
     end
 
@@ -66,7 +63,7 @@ RSpec.describe Api::V1::TasksController, type: :request do
         expect(response.body).to eq({
           status: true,
           data: {
-            id: 1,
+            id: task.id,
             user_id: user.id,
             title: task.title,
             content: task.content,
