@@ -3,9 +3,9 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
+  host: 127.0.0.1
   password:
   socket: /var/run/mysqld/mysqld.sock
-  host: 127.0.0.1
 
 development:
   <<: *default
@@ -18,5 +18,7 @@ test:
 production:
   <<: *default
   database: g221-rails-training_production
-  username: g221-rails-training
-  password: <%= ENV['G221-RAILS-TRAINING_DATABASE_PASSWORD'] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_PORT"] %>
