@@ -5,6 +5,11 @@ ruby "2.5.1"
 
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", ">= 1.1.0", require: false
+gem "capistrano-bundler", require: false
+gem "capistrano-rails", require: false
+gem "capistrano-rvm"
+gem "capistrano"
+gem "capistrano3-puma"
 gem "config"
 gem "faraday"
 gem "figaro"
