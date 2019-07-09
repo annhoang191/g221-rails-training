@@ -27,3 +27,6 @@
 
 # Ignore file config environment
 /config/application.yml
+
+# Ignore script export production env variables
+/config/environment.sh
