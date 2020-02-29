@@ -10,7 +10,7 @@ gem "faraday"
 gem "figaro"
 gem "jwt"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
-gem "puma", "~> 3.11"
+gem "puma", "~> 3.12"
 gem "rack-cors"
 gem "rails", "~> 5.2.3"
 gem "rubocop", "~> 0.69.0", require: false
